@@ -16,17 +16,12 @@ module.exports = (app) => {
   });
 
   router.get("/", async (req, res) => {
-    // const queryOptions = {};
+    const queryOptions = {};
     if (req.Model.modelName === "Category") {
-      // queryOptions.populate = "parent";
-      const items = await req.Model.find().populate("parent").limit(10);
-      res.send(items);
-    } else {
-      const items = await req.Model.find().limit(10);
-      res.send(items);
+      queryOptions.populate = "parent";
     }
-
-    // const items = await req.Model.find().setOptions(queryOptions).limit(100);
+    const items = await req.Model.find().setOptions(queryOptions);
+    res.send(items);
   });
 
   router.get("/:id", async (req, res) => {
